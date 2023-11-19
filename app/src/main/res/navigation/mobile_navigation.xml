@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/splash_screen_fragment">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.example.pokemon_challenge.ui.home.HomeFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_navigation_home_to_detail_fragment"
+            app:destination="@id/detail_fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_my_pokemon"
+        android:name="com.example.pokemon_challenge.ui.my_pokemon.MyPokemonFragment"
+        android:label="@string/title_my_pokemon"
+        tools:layout="@layout/fragment_my_pokemon" />
+
+    <fragment
+        android:id="@+id/splash_screen_fragment"
+        android:name="com.example.pokemon_challenge.ui.SplashScreenFragment"
+        android:label="@string/splash_screen"
+        tools:layout="@layout/fragment_splash_screen" >
+        <action
+            android:id="@+id/action_splash_screen_fragment_to_navigation_home"
+            app:destination="@id/navigation_home"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/splash_screen_fragment"
+            app:popUpToInclusive="true"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/detail_fragment"
+        android:name="com.example.pokemon_challenge.ui.detail.DetailPokemonFragment"
+        android:label="@string/detail"
+        tools:layout="@layout/fragment_detail_pokemon">
+
+        <argument
+            android:name="pokemonId"
+            app:argType="string"
+            app:nullable="true"/>
+
+        <argument
+            android:name="pokemonName"
+            app:argType="string"
+            app:nullable="true"/>
+
+        <argument
+            android:name="pokemonImg"
+            app:argType="string"
+            app:nullable="true"/>
+
+
+    </fragment>
+
+</navigation>

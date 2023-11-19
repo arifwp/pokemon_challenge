@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">pokemon_challenge</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_my_pokemon">My Pokemon</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="example_name_pokemon">Bulbasaur</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="splash_screen">Splash Screen</string>
+    <string name="detail">Detail</string>
+</resources>
