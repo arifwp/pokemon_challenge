@@ -21,6 +21,7 @@ class DetailPokemonFragment : Fragment() {
     private var _binding: FragmentDetailPokemonBinding? = null
     private val binding get() = _binding!!
     private val detailPokemonViewModel: DetailPokemonViewModel by viewModels()
+    private val apiCustomViewModel: ApiCustomViewModel by viewModels()
     private val args: DetailPokemonFragmentArgs by navArgs()
     private val TAG = "DetailPokemonFragment"
 
@@ -45,6 +46,10 @@ class DetailPokemonFragment : Fragment() {
             .load(args.pokemonImg)
             .placeholder(R.drawable.example_img_pokemon)
             .into(binding.ivPokemonDetail)
+
+        binding.fab.setOnClickListener {
+            apiCustomViewModel.catchingPokemon(args.pokemonId.toString(), args.pokemonName.toString())
+        }
     }
 
     private fun observe() {
@@ -68,6 +73,36 @@ class DetailPokemonFragment : Fragment() {
                 }
                 is BaseResponse.Error -> {
                     binding.tvTypes.text = "Unknown"
+                    Toast.makeText(context,it.msg.toString(), Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+
+        apiCustomViewModel.catchPokemon.observe(viewLifecycleOwner){
+            when(it){
+                is BaseResponse.Success -> {
+                    if(it.data?.newName != null){
+                        apiCustomViewModel.savePokemon(
+                            args.pokemonId.toString(),
+                            args.pokemonName.toString(),
+                            args.pokemonImg.toString()
+                        )
+                    } else {
+                        Toast.makeText(context, "Probability under 50%", Toast.LENGTH_SHORT).show()
+                    }
+                }
+                is BaseResponse.Error -> {
+                    Toast.makeText(context,it.msg.toString(), Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+
+        apiCustomViewModel.insertPokemon.observe(viewLifecycleOwner){
+            when(it){
+                is BaseResponse.Success -> {
+                    Toast.makeText(context,it.data?.message.toString(), Toast.LENGTH_SHORT).show()
+                }
+                is BaseResponse.Error -> {
                     Toast.makeText(context,it.msg.toString(), Toast.LENGTH_SHORT).show()
                 }
             }

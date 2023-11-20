@@ -44,15 +44,10 @@ class DetailPokemonViewModel @Inject constructor(private val repository: RemoteR
     fun getTypes(id: String){
         viewModelScope.launch {
             try {
-
                 val response = repository.getTypes(id)
                 if(response.code() == 200){
                     _dataTypes.value = BaseResponse.Success(response.body())
                 } else {
-                    Log.d(TAG, "getMovesCode: ${response.code().toString()}")
-                    Log.d(TAG, "getMovesErrorBody: ${response.errorBody().toString()}")
-                    Log.d(TAG, "getMovesRaw: ${response.raw()}")
-                    Log.d(TAG, "getMoves: ${response.message().toString()}")
                     _dataTypes.value = BaseResponse.Error(response.message().toString())
                 }
 
